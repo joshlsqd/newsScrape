@@ -6,7 +6,7 @@ var mongoose = require("mongoose");
 var PORT = process.env.PORT || 3001;
 
 // Initialize Express
-var app = express();
+const app = express();
 
 // Configure middleware
 
@@ -20,8 +20,10 @@ app.use(express.static("public"));
 
 // By default mongoose uses callbacks for async queries, we're setting it to use promises (.then syntax) instead
 // Connect to the Mongo DB
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/newsScrape\";
 mongoose.Promise = Promise;
-mongoose.connect("mongodb://localhost/newsScrape", {
+mongoose.connect(MONGODB_URI, {
+    useMongoClient: true
 });
 
 // Routes
