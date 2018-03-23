@@ -3,18 +3,14 @@ const router = express.Router();
 
 const controller = require('../controllers/fetch');
 const headlineController = require('../controllers/headline');
+const noteController = require('../controllers/note');
 
-router.get("/", controller.viewArticles);
-// A GET route for scraping the echojs website
-router.get("/scrape", controller.scrape);
-
-// Route for getting all Articles from the db
-router.get("/articles", headlineController.getArticles);
-
-// Route for grabbing a specific Article by id, populate it with it's note
-router.get("/articles/:id", headlineController.getArticle);
-
-// Route for saving/updating an Article's associated Note
-router.post("/articles/:id", headlineController.updateArticle);
+router.get("/api", controller.viewArticles);
+router.get("/api/scrape", controller.scrape);
+router.get("/api/articles", headlineController.getArticles);
+router.post("/api/notes/:id", noteController.createNote);
+router.put("/api/articles/:headlineId", headlineController.updateArticleSave);
+router.get("/api/notes/:id", noteController.getNotes);
+router.delete("/api/notes/:noteId/:headlineId", noteController.deleteNote);
 
 module.exports = router;
